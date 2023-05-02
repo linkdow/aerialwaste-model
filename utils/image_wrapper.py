@@ -203,6 +203,32 @@ class ImageWrapper:
         else:
             self.__show_cams(self.global_cams)
 
+    def return_global_cams(self):
+        """Shows the computed global Class Activation Maps (CAMs)
+        of the image."""
+        if self.__global_cams is None:
+            print(self.IMG_GLOBAL_CAMS_NOT_COMPUTED_ERROR_MSG)
+        else:
+            figure = self.return_show_cams(self.global_cams)
+            return figure
+        
+    def return_show_cams(self, cams):
+        """Returns the input class activation maps (CAMs)"""
+        cam_arr = cams
+
+        fig, axs = plt.subplots(1, 1, figsize=(5, 5))
+        plt_cam = cam_arr[0]
+        axi = axs
+        if plt_cam.shape != self.image.shape[:-1]:
+            plt_cam = np.array(Image.fromarray(plt_cam).resize(self.image.shape[:-1]))
+        axi.imshow(plt_cam, alpha=0.6, vmin=0, vmax=1, cmap="jet")
+        # axi.set_title(f"Cat {idx} - {self.cats[idx-1]} CAM", fontsize=14)
+        axi.axis("off")
+        fig.tight_layout(pad=0, w_pad=0, h_pad=0)
+        plt.ioff()  # Turn off interactive plotting
+        fig.canvas.draw()  # Force the figure to be drawn
+        return fig
+
     def show_image(self, title=None, figsize=(8, 8)):
         """Shows the original image on screen.
 
@@ -231,7 +257,7 @@ class ImageWrapper:
             if s > self.__thresholds[i]
         }
 
-    def __show_cams(self, cams, title=None):
+    def __show_cams(self, cams, title=None,save=False):
         """Shows the input class activation maps (CAMs)"""
         cam_arr = cams
         q = len(self.cats) + 1
