@@ -3,7 +3,7 @@
 ### Installing PyTorch
 If you already have a working PyTorch environnement you can skip this part.
 The easiest way is to create a new conda environnement [Conda] (link for windows).
-Once installed you need to create an environnement :
+Once installed you need to create an environnement. You can do this by opening an Anaconda command prompt and typing :
 ```bash
 conda create --prefix H:/Anaconda/pytorchwaste python=3.8
 conda activate H:/Anaconda/pytorchwaste
@@ -28,8 +28,6 @@ conda install ipykernel --update-deps
 ### Cloning the model
 ```bash
 cd H:/your_path/
-git clone https://github.com/nahitorres/aerialwaste-model
-# ou le mien avec mes modifications :
 git clone https://github.com/linkdow/aerialwaste-model
 cd aerialwaste
 ```
